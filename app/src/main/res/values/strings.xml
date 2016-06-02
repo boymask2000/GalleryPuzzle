@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GalleryPuzzle</string>
+    <string name="get_image">Scegli Immagine</string>
+    <string name="start">Inizia</string>
+</resources>
