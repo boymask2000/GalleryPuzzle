@@ -71,6 +71,11 @@ public class GameActivity extends Activity {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                 Heap.setBitmap(bm);
+
+                Intent openPage1 = new Intent(GameActivity.this, MainActivity.class);
+
+
+                startActivity(openPage1);
             } catch (IOException e) {
                 e.printStackTrace();
             }

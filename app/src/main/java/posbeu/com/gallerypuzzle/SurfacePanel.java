@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
@@ -36,7 +37,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int numMosse = 0;
     private boolean goSolve = false;
 
-    private List<Moving> transiti = new ArrayList<Moving>();
+//    private List<Moving> transiti = new ArrayList<Moving>();
     private Chunk first = null;
     private int i = 0;
 
@@ -98,9 +99,9 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
             for (Chunk d : lista) {
                 if (d.getPosAttuale() == pos) {
 
-                    MotionEvent motionEvent = MotionEvent.obtain(
-                            10,
-                            19,
+                    MotionEvent motionEvent1 = MotionEvent.obtain(
+                            SystemClock.uptimeMillis(),
+                            SystemClock.uptimeMillis(),
                             MotionEvent.ACTION_DOWN,
                             c.getX() + 1,
                             c.getY() + 1,
@@ -108,11 +109,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                     );
 
 // Dispatch touch event to view
-                    this.dispatchTouchEvent(motionEvent);
+                    this.dispatchTouchEvent(motionEvent1);
+
                     Thread.sleep(1000);
-                    motionEvent = MotionEvent.obtain(
-                            10,
-                            19,
+                    MotionEvent motionEvent2 = MotionEvent.obtain(
+                            SystemClock.uptimeMillis(),
+                            SystemClock.uptimeMillis(),
                             MotionEvent.ACTION_DOWN,
                             d.getX() + 1,
                             d.getY() + 1,
@@ -120,7 +122,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                     );
 
 // Dispatch touch event to view
-                    this.dispatchTouchEvent(motionEvent);
+                    this.dispatchTouchEvent(motionEvent2);
 
                     break;
                 }
@@ -143,14 +145,15 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         }
 
-        for (Moving m : transiti) {
-            m.nextStep();
-        }
+
         if (goSolve) try {
             solve();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+/*        for (Moving m : transiti) {
+            m.nextStep();
+        }*/
     }
 
     public void goSolve() {
@@ -251,6 +254,10 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
+    /*    for (Moving m : transiti) {
+            if (m.isArrivato()) transiti.remove(m);
+        }*/
+
         float x = event.getX();
         float y = event.getY();
 
@@ -258,9 +265,17 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
             case MotionEvent.ACTION_DOWN:
                 numMosse++;
                 Chunk p = getChunk(x, y);
+                if (p == null) return true;
                 p.setSelected(true);
                 if (first == null) first = p;
                 else {
+                    if (first == p) {
+                        p.setSelected(false);
+                        first.setSelected(false);
+                        return true;
+                    }
+//                    transiti.add(new Moving(first, first.getX(), first.getY(), p.getX(), p.getY()));
+//                    transiti.add(new Moving(p, p.getX(), p.getY(), first.getX(), first.getY()));
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {

@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 return true;
-            case R.id.solve:
+/*            case R.id.solve:
 
                 surface.goSolve();
 
-                return true;
+                return true;*/
             default:
                 return super.onOptionsItemSelected(item);
         }
