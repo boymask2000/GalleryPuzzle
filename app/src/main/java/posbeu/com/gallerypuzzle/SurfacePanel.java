@@ -2,7 +2,6 @@ package posbeu.com.gallerypuzzle;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -24,9 +23,7 @@ import java.util.Random;
  */
 public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback {
     private final Context context;
-  //  private final Bitmap mbitmap;
-  //  private final int imgWidth;
-  //  private final int imgHeight;
+
     private final Bitmap resizedPhotoBitMap;
     private final List<Chunk> lista;
 
@@ -36,7 +33,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int screenHeight;
 
     private Board board;
-    private int numMosse=0;
+    private int numMosse = 0;
+    private boolean goSolve = false;
+
+    private List<Moving> transiti = new ArrayList<Moving>();
+    private Chunk first = null;
+    private int i = 0;
 
     /**
      * parameterizedBitmap constructor for surface panel class
@@ -50,14 +52,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         getDims();
 
-//the bintitmap Bitmapwe wish to draw
-      //  photoBitMap = BitmapFactory.decodeResource(context.getResources(), R.drawable.gatto);
-        photoBitMap=Heap.getBitmap();
-       // mbitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.skull);
-      //  imgWidth = mbitmap.getWidth();
-      //  imgHeight = mbitmap.getHeight();
+
+        photoBitMap = Heap.getBitmap();
+
         SurfaceHolder holder = getHolder();
         resizedPhotoBitMap = getResizedBitmap(photoBitMap);
+        Heap.setBitmap(resizedPhotoBitMap);
         holder.addCallback(this);
         lista = randomize(board.prepareImage(resizedPhotoBitMap));
 
@@ -88,10 +88,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     }
 
 
-    private List<Moving> transiti = new ArrayList<Moving>();
-
-    int i = 0;
-
     private void solve() throws InterruptedException {
         if (i >= lista.size()) return;
         Chunk c = lista.get(i++);
@@ -106,19 +102,20 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                             10,
                             19,
                             MotionEvent.ACTION_DOWN,
-                            c.getX()+1,
-                            c.getY()+1,
+                            c.getX() + 1,
+                            c.getY() + 1,
                             0
                     );
 
 // Dispatch touch event to view
-                    this.dispatchTouchEvent(motionEvent); Thread.sleep(1000);
+                    this.dispatchTouchEvent(motionEvent);
+                    Thread.sleep(1000);
                     motionEvent = MotionEvent.obtain(
                             10,
                             19,
                             MotionEvent.ACTION_DOWN,
-                            d.getX()+1,
-                            d.getY()+1,
+                            d.getX() + 1,
+                            d.getY() + 1,
                             0
                     );
 
@@ -133,6 +130,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     }
 
     void doDraw(Canvas canvas) {
+
+
         List<Chunk> ll = new ArrayList<Chunk>();
 
         for (Chunk c : lista) {
@@ -147,11 +146,15 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         for (Moving m : transiti) {
             m.nextStep();
         }
-      /*  try {
+        if (goSolve) try {
             solve();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
+    }
+
+    public void goSolve() {
+        goSolve = true;
     }
 
     public Bitmap getResizedBitmap(Bitmap bm) {
@@ -170,6 +173,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         bm.recycle();
         return resizedBitmap;
     }
+
     public int getStatusBarHeight() {
         int result = 0;
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
@@ -179,16 +183,16 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         return result;
     }
 
-    public int getNavigationBarHeight()
-    {
+    public int getNavigationBarHeight() {
         boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        if (resourceId > 0 )//&& !hasMenuKey)
+        if (resourceId > 0)//&& !hasMenuKey)
         {
             return getResources().getDimensionPixelSize(resourceId);
         }
         return 0;
     }
+
     private void getDims() {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 
@@ -196,13 +200,13 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         Point size = new Point();
 
 
-            display.getSize(size);
+        display.getSize(size);
 
         int v1 = getStatusBarHeight();
         int v2 = getNavigationBarHeight();
 
         screenWidth = size.x;
-        screenHeight = size.y-v1-v2;
+        screenHeight = size.y - v1 - v2;
     }
 
     @Override
@@ -228,7 +232,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
     }
 
-    private Chunk first = null;
 
     private void scambia(Chunk c1, Chunk c2, boolean slow) {
 
@@ -289,7 +292,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         for (Chunk c : lista) {
             if (c.getPosAttuale() != c.getPosCorretta()) return;
         }
-       PopupMessage.info(context, "Bravo! Completato in "+numMosse+" mosse");
+        PopupMessage.info(context, "Bravo! Completato in " + numMosse + " mosse");
     }
 
     public Chunk getChunk(float x, float y) {

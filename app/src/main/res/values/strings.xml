@@ -2,4 +2,8 @@
     <string name="app_name">GalleryPuzzle</string>
     <string name="get_image">Scegli Immagine</string>
     <string name="start">Inizia</string>
+
+    <string name="title_activity_show_image">ShowImage</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

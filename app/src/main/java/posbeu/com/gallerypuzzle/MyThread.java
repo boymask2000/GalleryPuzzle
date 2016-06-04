@@ -39,6 +39,7 @@ public class MyThread extends Thread {
 
                 surfaceHolder.unlockCanvasAndPost(mcanvas);
 
+
             }
         }
     }

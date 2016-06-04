@@ -3,12 +3,14 @@ package posbeu.com.gallerypuzzle;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Looper;
 
 public class PopupMessage {
 	public static void info(Context context, String text) {
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				context);
-	
+		final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				Heap.getActivity());
+
 		alertDialogBuilder
 		.setMessage(text)
 		.setCancelable(true)
@@ -26,8 +28,23 @@ public class PopupMessage {
 		});*/
 
 		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
 
-		// show it
-		alertDialog.show();
+
+
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+			}
+		});
+
+
+		/*activity.runOnUiThread(new Runnable() {
+			public void run() {
+				Toast.makeText(activity, "Hello", Toast.LENGTH_SHORT).show();
+			}
+		});*/
 }}
