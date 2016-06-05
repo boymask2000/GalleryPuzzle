@@ -37,22 +37,16 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int numMosse = 0;
     private boolean goSolve = false;
 
-//    private List<Moving> transiti = new ArrayList<Moving>();
+    //    private List<Moving> transiti = new ArrayList<Moving>();
     private Chunk first = null;
     private int i = 0;
-
-    /**
-     * parameterizedBitmap constructor for surface panel class
-     **/
 
     public SurfacePanel(Context ctx, AttributeSet attrSet) {
         super(ctx, attrSet);
         context = ctx;
         board = new Board(context);
 
-
         getDims();
-
 
         photoBitMap = Heap.getBitmap();
 
@@ -108,7 +102,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                             0
                     );
 
-// Dispatch touch event to view
                     this.dispatchTouchEvent(motionEvent1);
 
                     Thread.sleep(1000);
@@ -121,14 +114,12 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                             0
                     );
 
-// Dispatch touch event to view
                     this.dispatchTouchEvent(motionEvent2);
 
                     break;
                 }
             }
         }
-        //   }
     }
 
     void doDraw(Canvas canvas) {
@@ -238,8 +229,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
     private void scambia(Chunk c1, Chunk c2, boolean slow) {
 
-
-        //    transiti.add( new Moving(c1,c1.getX(),c1.getY(),c2.getX(),c2.getY()  ));
         int xf = c1.getX();
         int yf = c1.getY();
         int posf = c1.getPosAttuale();
@@ -298,7 +287,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
             default:
                 break;
         }
-
 
         return true;
     }

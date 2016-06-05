@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private SurfacePanel surface;
 
+    private SurfacePanel surface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(surface);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
     }
 
     @Override
@@ -39,13 +38,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.view:
 
-
-
                 Intent gameIntent = new Intent(this, ShowImageActivity.class);
                 startActivity(gameIntent);
-
-
-
 
                 return true;
 /*            case R.id.solve:

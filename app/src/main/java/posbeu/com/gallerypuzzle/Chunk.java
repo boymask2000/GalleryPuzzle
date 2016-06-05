@@ -20,8 +20,7 @@ public class Chunk {
     private int posAttuale;
 
 
-
-    private boolean selected=false;
+    private boolean selected = false;
 
     public Chunk(Bitmap bitmap, int x, int y, int w, int h) {
         this.bitmap = bitmap;
@@ -30,6 +29,7 @@ public class Chunk {
         this.width = w;
         this.height = h;
     }
+
     public Bitmap getBitmap() {
         return bitmap;
     }
@@ -49,6 +49,7 @@ public class Chunk {
     public int getHeight() {
         return height;
     }
+
     public void setX(int x) {
         this.x = x;
     }
@@ -56,15 +57,14 @@ public class Chunk {
     public void setY(int y) {
         this.y = y;
     }
+
     public boolean isInside(float x1, float y1) {
-
-
 
         if (x1 >= x && x1 <= x + width && y1 >= y && y1 <= y + height) return true;
 
-
         return false;
     }
+
     public int getPosCorretta() {
         return posCorretta;
     }
@@ -81,23 +81,24 @@ public class Chunk {
         this.posAttuale = posAttuale;
     }
 
-    public void draw( Canvas canvas ){
+    public void draw(Canvas canvas) {
         Paint paint = new Paint();
 
-        paint.setColor(selected?Color.RED:Color.rgb(255, 153, 51));
-        paint.setStrokeWidth(10);
+        paint.setColor(selected ? Color.RED : Color.rgb(255, 153, 51));
+        paint.setStrokeWidth(selected ? 15 : 5);
         canvas.drawBitmap(getBitmap(), getX(), getY(), null);
         canvas.drawLine(getX(), getY(), getX() + getWidth(), getY(), paint);
         canvas.drawLine(getX(), getY(), getX(), getY() + getHeight(), paint);
 
-        canvas.drawLine(getX()+ getWidth(), getY(), getX() + getWidth(), getY()+ getHeight(), paint);
-        canvas.drawLine(getX(), getY()+ getHeight(), getX() + getWidth(), getY()+ getHeight(), paint);
+        canvas.drawLine(getX() + getWidth(), getY(), getX() + getWidth(), getY() + getHeight(), paint);
+        canvas.drawLine(getX(), getY() + getHeight(), getX() + getWidth(), getY() + getHeight(), paint);
     }
 
     public void setSelected(boolean b) {
 
-        selected=b;
+        selected = b;
     }
+
     public boolean isSelected() {
         return selected;
     }
