@@ -1,13 +1,17 @@
 package posbeu.com.gallerypuzzle;
 
+import java.util.List;
+
 /**
  * Created by gposabella on 30/05/2016.
  */
 public class Moving {
-    private final int startX;
-    private final int endX;
-    private final int startY;
-    private final int endY;
+
+    private int startX = 0;
+    private int endX = 0;
+    private int startY = 0;
+    private int endY = 0;
+    private List<Moving> lista = null;
     private Chunk chunk;
 
     private int finx;
@@ -17,7 +21,7 @@ public class Moving {
     private int cury;
     private boolean arrivato=false;
 
-    public Moving(Chunk c, int x1, int y1, int x2, int y2) {
+    public Moving(List<Moving> t, Chunk c, int x1, int y1, int x2, int y2) {
         chunk=c;
         curx = x1;
         cury = y1;
@@ -28,6 +32,9 @@ public class Moving {
         endX = (x1<x2)?x2:x1;
         startY= (y1<y2)?y1:y2;
         endY= (y1<y2)?y2:y1;
+
+
+        this.lista = t;
     }
 
 
@@ -60,7 +67,7 @@ public class Moving {
         chunk.setX(curx);
         chunk.setY(cury);
 
-        check();
+        check(min);
 
     }
 
@@ -68,11 +75,12 @@ public class Moving {
         return arrivato;
     }
 
-    private void check() {
-        if(endX-startX<5 && endY-startY<5){
+    private void check(int min) {
+        if (min < 100 || (endX - startX < 5 && endY - startY < 5)) {
             arrivato=true;
-            chunk.setX(endX);
-            chunk.setY(endY);
+            chunk.setX(finx);
+            chunk.setY(finy);
+            //   lista.remove(this);
 
         }
     }

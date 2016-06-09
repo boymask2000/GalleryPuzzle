@@ -1,15 +1,16 @@
 package posbeu.com.gallerypuzzle;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private SurfacePanel surface;
 
@@ -21,8 +22,11 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
         surface = new SurfacePanel(getBaseContext(), null);
         setContentView(surface);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+            setActionBar(myToolbar);
+        }
     }
 
     @Override

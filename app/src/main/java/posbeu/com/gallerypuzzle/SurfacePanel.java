@@ -37,7 +37,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int numMosse = 0;
     private boolean goSolve = false;
 
-    //    private List<Moving> transiti = new ArrayList<Moving>();
+    //        private List<Moving> transiti = new ArrayList<Moving>();
     private Chunk first = null;
     private int i = 0;
 
@@ -142,7 +142,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-/*        for (Moving m : transiti) {
+       /* for (Moving m : transiti) {
             m.nextStep();
         }*/
     }
@@ -243,9 +243,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-    /*    for (Moving m : transiti) {
-            if (m.isArrivato()) transiti.remove(m);
-        }*/
+
 
         float x = event.getX();
         float y = event.getY();
@@ -263,8 +261,8 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                         first.setSelected(false);
                         return true;
                     }
-//                    transiti.add(new Moving(first, first.getX(), first.getY(), p.getX(), p.getY()));
-//                    transiti.add(new Moving(p, p.getX(), p.getY(), first.getX(), first.getY()));
+           /*        transiti.add(new Moving(transiti, first, first.getX(), first.getY(), p.getX(), p.getY()));
+                    transiti.add(new Moving(transiti, p, p.getX(), p.getY(), first.getX(), first.getY()));*/
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
