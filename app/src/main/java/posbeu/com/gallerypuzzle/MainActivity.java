@@ -15,13 +15,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         Heap.setMainActivity(this);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.layout);
+        LinearLayout lay = (LinearLayout) findViewById(R.id.layout);
+
         surface = new SurfacePanel(getBaseContext(), null);
-        setContentView(surface);
 
-
+        lay.addView(surface);
     }
 
     @Override
@@ -35,17 +35,17 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.view:
+            case R.id.viewFinal:
 
                 Intent gameIntent = new Intent(this, ShowImageActivity.class);
                 startActivity(gameIntent);
 
                 return true;
-/*            case R.id.solve:
+            case R.id.solve:
 
                 surface.goSolve();
 
-                return true;*/
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

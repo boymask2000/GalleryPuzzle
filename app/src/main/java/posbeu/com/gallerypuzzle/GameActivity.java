@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -62,7 +63,21 @@ public class GameActivity extends Activity {
                 onSelectFromGalleryResult(data);
 //            else if (requestCode == REQUEST_CAMERA)
 //                onCaptureImageResult(data);
+
+            showSelected();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showSelected();
+    }
+
+    private void showSelected() {
+        if (Heap.getBitmap() == null) return;
+        ImageView view = (ImageView) findViewById(R.id.imgView);
+        view.setImageBitmap(Heap.getBitmap());
     }
 
     private void onSelectFromGalleryResult(Intent data) {
@@ -72,10 +87,10 @@ public class GameActivity extends Activity {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                 Heap.setBitmap(bm);
 
-                Intent openPage1 = new Intent(GameActivity.this, MainActivity.class);
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
 
 
-                startActivity(openPage1);
+                startActivity(intent);
             } catch (IOException e) {
                 e.printStackTrace();
             }
