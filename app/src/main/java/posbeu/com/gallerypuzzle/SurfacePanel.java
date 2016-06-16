@@ -28,7 +28,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private final Bitmap resizedPhotoBitMap;
     private final List<Chunk> lista;
 
-    private Bitmap photoBitMap;
+
     private MyThread mythread;
     private int screenWidth;
     private int screenHeight;
@@ -48,7 +48,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         getDims();
 
-        photoBitMap = Heap.getBitmap();
+        Bitmap photoBitMap = Heap.getBitmap();
 
         SurfaceHolder holder = getHolder();
         resizedPhotoBitMap = getResizedBitmap(photoBitMap);
@@ -164,7 +164,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
         // "RECREATE" THE NEW BITMAP
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 bm, 0, 0, width, height, matrix, false);
-        bm.recycle();
+        //    bm.recycle();
         return resizedBitmap;
     }
 
