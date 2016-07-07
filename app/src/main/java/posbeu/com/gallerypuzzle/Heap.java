@@ -10,6 +10,8 @@ public class Heap {
 
 
     private static MainActivity activity;
+    private static float fact;
+    private static Board board;
 
 
     public static Bitmap getBitmap() {
@@ -28,4 +30,19 @@ public class Heap {
         return activity;
     }
 
+    public static void setFact(float fact) {
+        Heap.fact = fact;
+    }
+
+    public static float getFact() {
+        return fact;
+    }
+
+    public static void setBoard(Board board) {
+        Heap.board = board;
+    }
+
+    public static Board getBoard() {
+        return board;
+    }
 }

@@ -2,7 +2,9 @@ package posbeu.com.gallerypuzzle;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    private static final int RESULT_SETTINGS = 16;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -46,8 +49,51 @@ public class MainActivity extends Activity {
                 surface.goSolve();
 
                 return true;
+            case R.id.opzioni:
+
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivityForResult(i, RESULT_SETTINGS);
+
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RESULT_SETTINGS:
+                showUserSettings();
+                break;
+
+        }
+
+    }
+
+    private void showUserSettings() {
+        SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        String livello = sharedPrefs.getString("Livello", "NULL");
+        ;
+
+
+        Heap.getBoard().setNCOL(decodeLivello(livello));
+
+        Heap.getActivity().finish();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivityForResult(i, RESULT_SETTINGS);
+
+
+    }
+
+    private int decodeLivello(String livello) {
+        if (livello.equalsIgnoreCase("facile")) return 5;
+        if (livello.equalsIgnoreCase("medio")) return 6;
+        if (livello.equalsIgnoreCase("difficile")) return 7;
+        return 9;
     }
 }

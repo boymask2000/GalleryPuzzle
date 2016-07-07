@@ -10,8 +10,13 @@ import java.util.List;
  * Created by gposabella on 31/05/2016.
  */
 public class Board {
-    private static final int NROW = 5;
-    private static final int NCOL = 5;
+    private static int NROW = 10;
+
+    public static void setNCOL(int NCOL) {
+        Board.NCOL = NCOL;
+    }
+
+    private static int NCOL = 10;
 
     private final Context context;
     private int chunkHeight;
@@ -19,10 +24,12 @@ public class Board {
 
     public Board(Context context) {
         this.context = context;
+        Heap.setBoard(this);
     }
 
 
     public List<Chunk> prepareImage(Bitmap bit) {
+        NROW = (int) (NCOL * Heap.getFact());
         List<Chunk> lista = new ArrayList<Chunk>();
 
         chunkHeight = bit.getHeight() / NROW;

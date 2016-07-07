@@ -85,7 +85,7 @@ public class Chunk {
         Paint paint = new Paint();
 
         paint.setColor(selected ? Color.RED : Color.rgb(255, 153, 51));
-        paint.setStrokeWidth(selected ? 15 : 5);
+        paint.setStrokeWidth(selected ? 15 : 2);
         canvas.drawBitmap(getBitmap(), getX(), getY(), null);
         canvas.drawLine(getX(), getY(), getX() + getWidth(), getY(), paint);
         canvas.drawLine(getX(), getY(), getX(), getY() + getHeight(), paint);

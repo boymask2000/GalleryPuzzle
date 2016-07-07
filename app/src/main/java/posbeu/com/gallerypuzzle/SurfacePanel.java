@@ -37,7 +37,6 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
     private int numMosse = 0;
     private boolean goSolve = false;
 
-    //        private List<Moving> transiti = new ArrayList<Moving>();
     private Chunk first = null;
     private int i = 0;
 
@@ -201,6 +200,9 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
 
         screenWidth = size.x;
         screenHeight = size.y - v1 - v2;
+        float f = (float) screenHeight / screenWidth;
+
+        if (screenHeight >= screenWidth) Heap.setFact(f);
     }
 
     @Override
@@ -261,8 +263,7 @@ public class SurfacePanel extends SurfaceView implements SurfaceHolder.Callback 
                         first.setSelected(false);
                         return true;
                     }
-           /*        transiti.add(new Moving(transiti, first, first.getX(), first.getY(), p.getX(), p.getY()));
-                    transiti.add(new Moving(transiti, p, p.getX(), p.getY(), first.getX(), first.getY()));*/
+
                     try {
                         Thread.sleep(700);
                     } catch (InterruptedException e) {
