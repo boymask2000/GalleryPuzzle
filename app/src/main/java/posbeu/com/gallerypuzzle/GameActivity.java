@@ -28,7 +28,7 @@ public class GameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-8989909437708205~1809804777");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-6114671792914206~9081633054");
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
